@@ -1,0 +1,26 @@
+.msgs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 780px;
+}
+
+.msg-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px 20px;
+}
+
+.msg-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.msg-name  { font-weight: 700; font-size: 0.92rem; }
+.msg-email { color: var(--accent2); font-size: 0.8rem; }
+.msg-date  { font-family: var(--fm); font-size: 0.74rem; color: var(--muted); margin-left: auto; }
+.msg-body  { color: var(--muted); font-size: 0.88rem; line-height: 1.75; }

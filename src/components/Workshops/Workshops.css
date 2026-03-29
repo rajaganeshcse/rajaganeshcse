@@ -1,0 +1,274 @@
+.workshops-section {
+  background: rgba(255, 252, 247, 0.44);
+}
+
+.workshops-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.ws-card {
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.ws-img-wrap {
+  position: relative;
+  height: clamp(200px, 24vw, 220px);
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.18), rgba(197, 106, 26, 0.18));
+}
+
+.ws-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.4s ease;
+}
+
+.ws-img-active {
+  opacity: 1;
+}
+
+.ws-card:hover .ws-img-active {
+  transform: scale(1.04);
+}
+
+.ws-dots,
+.ws-modal-dots {
+  display: flex;
+  gap: 6px;
+}
+
+.ws-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.ws-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.ws-dot.active {
+  background: #fff;
+  transform: scale(1.25);
+}
+
+.ws-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(17, 33, 42, 0.42);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.ws-card:hover .ws-overlay {
+  opacity: 1;
+}
+
+.ws-overlay span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ws-body {
+  padding: clamp(1rem, 2.4vw, 1.25rem);
+}
+
+.ws-title,
+.ws-modal-title {
+  color: var(--text);
+  font-family: var(--fh);
+  font-weight: 700;
+}
+
+.ws-title {
+  margin-bottom: 6px;
+  font-size: 1.02rem;
+}
+
+.ws-org,
+.ws-modal-org {
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.ws-org {
+  margin-bottom: 6px;
+  font-size: 0.88rem;
+}
+
+.ws-date,
+.ws-modal-date {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: rgba(17, 33, 42, 0.06);
+  color: var(--text-soft);
+  font-family: var(--fm);
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.ws-date {
+  margin-bottom: 12px;
+}
+
+.ws-desc,
+.ws-modal-desc {
+  color: var(--text-soft);
+  line-height: 1.8;
+}
+
+.ws-desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ws-card-link {
+  color: var(--brand);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.ws-modal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(14, 24, 30, 0.82);
+  backdrop-filter: blur(14px);
+}
+
+.ws-modal {
+  width: min(720px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 30px;
+  background: rgba(255, 252, 247, 0.96);
+  box-shadow: var(--shadow-lg);
+  position: relative;
+}
+
+.ws-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(17, 33, 42, 0.82);
+  color: #fff;
+  cursor: pointer;
+}
+
+.ws-modal-gallery {
+  position: relative;
+  height: clamp(240px, 42vw, 360px);
+  background: rgba(17, 33, 42, 0.04);
+}
+
+.ws-modal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ws-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 252, 247, 0.92);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.ws-nav-l {
+  left: 14px;
+}
+
+.ws-nav-r {
+  right: 14px;
+}
+
+.ws-modal-dots {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+}
+
+.ws-counter {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(17, 33, 42, 0.72);
+  color: #fff;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.ws-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: clamp(1.1rem, 2.4vw, 1.5rem);
+}
+
+.ws-modal-title {
+  font-size: 1.3rem;
+}
+
+.ws-modal-body .plink {
+  width: fit-content;
+}
+
+@media (max-width: 768px) {
+  .workshops-grid {
+    grid-template-columns: 1fr;
+  }
+}

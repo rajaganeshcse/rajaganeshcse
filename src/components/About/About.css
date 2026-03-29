@@ -1,0 +1,99 @@
+.about-section {
+  background:
+    radial-gradient(circle at 16% 20%, rgba(30, 108, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(240, 248, 255, 0.64));
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(260px, 0.9fr);
+  gap: clamp(1rem, 3vw, 1.5rem);
+  align-items: stretch;
+}
+
+.about-text {
+  padding: clamp(1.4rem, 3vw, 2rem);
+  border: 1px solid rgba(30, 108, 255, 0.12);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.96), rgba(240, 248, 255, 0.88)),
+    radial-gradient(circle at top right, rgba(255, 107, 53, 0.12), transparent 30%);
+  color: var(--text-soft);
+  font-size: 1.03rem;
+  line-height: 1.95;
+  box-shadow: var(--shadow-sm);
+}
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.875rem, 2vw, 1rem);
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 140px;
+  padding: clamp(1rem, 2.6vw, 1.5rem);
+  border: 1px solid rgba(30, 108, 255, 0.12);
+  border-radius: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+}
+
+.stat:nth-child(1) {
+  background: linear-gradient(135deg, rgba(30, 108, 255, 0.16), rgba(255, 255, 255, 0.92));
+}
+
+.stat:nth-child(2) {
+  background: linear-gradient(135deg, rgba(0, 183, 168, 0.16), rgba(255, 255, 255, 0.92));
+}
+
+.stat:nth-child(3) {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.16), rgba(255, 255, 255, 0.92));
+}
+
+.stat:nth-child(4) {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.22), rgba(255, 255, 255, 0.92));
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(0, 183, 168, 0.24);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-num {
+  color: var(--text);
+  font-family: var(--fh);
+  font-size: 2.4rem;
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.stat-label {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .about-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat {
+    min-height: auto;
+  }
+}
