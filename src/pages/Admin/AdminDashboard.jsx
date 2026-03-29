@@ -65,6 +65,23 @@ export default function AdminDashboard() {
       </aside>
 
       <main className="dash-content">
+        <div className="mobile-admin-bar">
+          <div className="mobile-admin-top">
+            <div className="mobile-admin-brand">Profile Admin</div>
+            <button className="logout-btn mobile-logout-btn" onClick={handleLogout}>Logout</button>
+          </div>
+          <label className="mobile-tab-picker">
+            <span>Manage Section</span>
+            <select value={tab} onChange={(e) => setTab(e.target.value)}>
+              {TABS.map((t) => (
+                <option key={t} value={t}>
+                  {t === 'Messages' && unread > 0 ? `${t} (${unread})` : t}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
         <div className="admin-actions">
           <div className="admin-panel-pill">Admin Panel</div>
           <div className="theme-switch" role="group" aria-label="Admin theme switcher">
