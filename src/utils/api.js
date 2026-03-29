@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
-export const MEDIA = process.env.REACT_APP_MEDIA_URL || 'http://localhost:8000';
+const BASE = process.env.REACT_APP_API_URL || 'https://website-backend-8v6m.onrender.com/api';
+export const MEDIA = process.env.REACT_APP_MEDIA_URL || 'https://website-backend-8v6m.onrender.com';
 
 const API = axios.create({ baseURL: BASE });
 
