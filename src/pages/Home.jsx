@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import API from '../utils/api';
+import LoadingScreen from '../components/LoadingScreen/LoadingScreen';
 import Navbar from '../components/Navbar/Navbar';
 import Hero from '../components/Hero/Hero';
 import About from '../components/About/About';
@@ -21,9 +22,22 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+
     API.get('/portfolio/')
-      .then((res) => { setData(res.data); setLoading(false); })
-      .catch(() => setLoading(false));
+      .then((res) => {
+        if (!isMounted) return;
+        setData(res.data);
+      })
+      .catch(() => {})
+      .finally(() => {
+        if (!isMounted) return;
+        setLoading(false);
+      });
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   useEffect(() => {
@@ -37,13 +51,25 @@ export default function Home() {
 
   if (loading) {
     return (
-      <div style={{ minHeight:'100vh', display:'flex', alignItems:'center', justifyContent:'center', background:'var(--bg)' }}>
-        <div style={{ textAlign:'center' }}>
-          <div style={{ width:48, height:48, border:'4px solid #e2e8f0', borderTopColor:'var(--primary)', borderRadius:'50%', animation:'spin 0.8s linear infinite', margin:'0 auto 16px' }} />
-          <p style={{ fontFamily:'var(--fh)', color:'var(--muted)', fontSize:'0.9rem', fontWeight:600 }}>Loading portfolio...</p>
-        </div>
-        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
-      </div>
+      <LoadingScreen
+        eyebrow="Live Portfolio Sync"
+        title="Shaping the first impression from fresh data."
+        message="Hero details, projects, certifications, journals, and contact info are being pulled from the database so the landing page opens fully composed."
+        steps={[
+          {
+            label: 'Fetching profile records',
+            detail: 'Loading hero, about, and supporting profile details.',
+          },
+          {
+            label: 'Arranging featured work',
+            detail: 'Preparing projects, apps, workshops, and learning highlights.',
+          },
+          {
+            label: 'Finalizing the front page',
+            detail: 'Composing sections and media so the experience feels ready on arrival.',
+          },
+        ]}
+      />
     );
   }
 

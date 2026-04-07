@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import API from '../../utils/api';
+import LoadingScreen from '../../components/LoadingScreen/LoadingScreen';
 import HeroTab        from './tabs/HeroTab';
 import SkillsTab      from './tabs/SkillsTab';
 import ProjectsTab    from './tabs/ProjectsTab';
@@ -23,6 +24,7 @@ export default function AdminDashboard() {
   const navigate            = useNavigate();
   const [tab,   setTab]     = useState('Hero');
   const [data,  setData]    = useState({});
+  const [loading, setLoading] = useState(true);
   const [flash, setFlash]   = useState('');
   const [theme, setTheme]   = useState(() => {
     if (typeof window === 'undefined') return 'light';
@@ -31,23 +33,60 @@ export default function AdminDashboard() {
   });
 
   useEffect(() => { if (!isAdmin) navigate('/admin'); }, [isAdmin, navigate]);
-  useEffect(() => { loadAll(); }, []);
+  useEffect(() => { loadAll(true); }, []);
   useEffect(() => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);
 
-  const loadAll = async () => {
-    const [port, msgs, gallery] = await Promise.all([
-      API.get('/portfolio/'),
-      API.get('/admin/messages/'),
-      API.get('/admin/gallery/'),
-    ]);
-    setData({ ...port.data, messages: msgs.data, gallery: gallery.data });
+  const loadAll = async (showLoader = false) => {
+    if (showLoader) {
+      setLoading(true);
+    }
+
+    try {
+      const [port, msgs, gallery] = await Promise.all([
+        API.get('/portfolio/'),
+        API.get('/admin/messages/'),
+        API.get('/admin/gallery/'),
+      ]);
+      setData({ ...port.data, messages: msgs.data, gallery: gallery.data });
+    } catch (error) {
+      console.error('Failed to load dashboard data', error);
+    } finally {
+      if (showLoader) {
+        setLoading(false);
+      }
+    }
   };
 
   const showFlash = (msg) => { setFlash(msg); setTimeout(() => setFlash(''), 2800); };
   const handleLogout = () => { logout(); navigate('/'); };
   const unread = (data.messages || []).filter((m) => !m.is_read).length;
+
+  if (loading) {
+    return (
+      <LoadingScreen
+        tone="admin"
+        eyebrow="Admin Data Sync"
+        title="Preparing the content workspace."
+        message="Portfolio records, gallery entries, and visitor messages are being gathered so the dashboard opens with everything ready to manage."
+        steps={[
+          {
+            label: 'Loading portfolio data',
+            detail: 'Collecting hero content, projects, apps, and education records.',
+          },
+          {
+            label: 'Syncing admin extras',
+            detail: 'Pulling gallery items and the latest messages into the workspace.',
+          },
+          {
+            label: 'Unlocking editor tools',
+            detail: 'Finalizing the dashboard so editing and uploads feel immediate.',
+          },
+        ]}
+      />
+    );
+  }
 
   return (
     <div className={`dashboard theme-${theme}`}>

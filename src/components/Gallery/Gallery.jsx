@@ -74,7 +74,32 @@ export default function Gallery() {
     };
   }, [images.length]);
 
-  if (loading || images.length === 0) return null;
+  if (loading) {
+    return (
+      <section className="gallery-section">
+        <div className="gallery-head">
+          <span className="section-label"><span className="pulse" /> Gallery</span>
+          <h2 className="section-title">My <span>Participation</span></h2>
+          <p className="section-sub">Snapshots from workshops, achievements, internships, and project milestones.</p>
+        </div>
+
+        <div className="gallery-loading-row" aria-hidden="true">
+          {[0, 1, 2].map((item) => (
+            <div key={item} className="gallery-loading-card">
+              <div className="gallery-loading-image" />
+              <div className="gallery-loading-copy">
+                <span className="gallery-loading-pill" />
+                <span className="gallery-loading-line gallery-loading-line--title" />
+                <span className="gallery-loading-line gallery-loading-line--meta" />
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    );
+  }
+
+  if (images.length === 0) return null;
 
   const doubled = [...images, ...images];
 
