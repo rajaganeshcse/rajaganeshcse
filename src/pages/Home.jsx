@@ -50,38 +50,6 @@ export default function Home() {
     return () => observer.disconnect();
   }, [data]);
 
-  if (loading) {
-    return (
-      <LoadingScreen
-        eyebrow="Live Portfolio Sync"
-        title="Shaping the first impression from fresh data."
-        message="Hero details, projects, certifications, journals, and contact info are being pulled from the database so the landing page opens fully composed."
-        steps={[
-          {
-            label: 'Fetching profile records',
-            detail: 'Loading hero, about, and supporting profile details.',
-          },
-          {
-            label: 'Arranging featured work',
-            detail: 'Preparing projects, apps, workshops, and learning highlights.',
-          },
-          {
-            label: 'Finalizing the front page',
-            detail: 'Composing sections and media so the experience feels ready on arrival.',
-          },
-        ]}
-      />
-    );
-  }
-
-  const cgpa = data?.education?.find((item) => /cgpa/i.test(item.score || ''))?.score?.match(/[\d.]+/)?.[0] || '8.86';
-  const stats = {
-    cgpa,
-    projectCount: data?.projects?.length || 0,
-    certCount: data?.certifications?.length || 0,
-    workshopCount: data?.workshops?.length || 0,
-  };
-
   useEffect(() => {
     const hero = data?.hero;
     const siteUrl = hero?.portfolio || 'https://react-website-five-theta.vercel.app/';
@@ -146,6 +114,38 @@ export default function Home() {
       },
     });
   }, [data]);
+
+  if (loading) {
+    return (
+      <LoadingScreen
+        eyebrow="Live Portfolio Sync"
+        title="Shaping the first impression from fresh data."
+        message="Hero details, projects, certifications, journals, and contact info are being pulled from the database so the landing page opens fully composed."
+        steps={[
+          {
+            label: 'Fetching profile records',
+            detail: 'Loading hero, about, and supporting profile details.',
+          },
+          {
+            label: 'Arranging featured work',
+            detail: 'Preparing projects, apps, workshops, and learning highlights.',
+          },
+          {
+            label: 'Finalizing the front page',
+            detail: 'Composing sections and media so the experience feels ready on arrival.',
+          },
+        ]}
+      />
+    );
+  }
+
+  const cgpa = data?.education?.find((item) => /cgpa/i.test(item.score || ''))?.score?.match(/[\d.]+/)?.[0] || '8.86';
+  const stats = {
+    cgpa,
+    projectCount: data?.projects?.length || 0,
+    certCount: data?.certifications?.length || 0,
+    workshopCount: data?.workshops?.length || 0,
+  };
 
   return (
     <>
