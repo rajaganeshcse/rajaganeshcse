@@ -14,6 +14,7 @@ import CertsTab       from './tabs/CertsTab';
 import WorkshopsTab   from './tabs/WorkshopsTab';
 import MessagesTab    from './tabs/MessagesTab';
 import GalleryTab     from './tabs/GalleryTab';
+import { applyNoIndexSeo } from '../../utils/seo';
 import './AdminDashboard.css';
 
 const TABS = ['Hero','Skills','Projects','My Apps','Education','Journal','Internships','Courses','Workshops','Gallery','Messages'];
@@ -34,6 +35,12 @@ export default function AdminDashboard() {
 
   useEffect(() => { if (!isAdmin) navigate('/admin'); }, [isAdmin, navigate]);
   useEffect(() => { loadAll(true); }, []);
+  useEffect(() => {
+    applyNoIndexSeo({
+      title: 'Profile Admin Dashboard | Rajaganesh T',
+      description: 'Admin dashboard for managing the Rajaganesh T portfolio website.',
+    });
+  }, []);
   useEffect(() => {
     window.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }, [theme]);

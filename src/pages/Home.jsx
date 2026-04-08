@@ -16,6 +16,7 @@ import Certifications from '../components/Certifications/Certifications';
 import Workshops from '../components/Workshops/Workshops';
 import Contact from '../components/Contact/Contact';
 import Footer from '../components/Footer/Footer';
+import { applySeo } from '../utils/seo';
 
 export default function Home() {
   const [data,    setData]    = useState(null);
@@ -80,6 +81,71 @@ export default function Home() {
     certCount: data?.certifications?.length || 0,
     workshopCount: data?.workshops?.length || 0,
   };
+
+  useEffect(() => {
+    const hero = data?.hero;
+    const siteUrl = hero?.portfolio || 'https://react-website-five-theta.vercel.app/';
+    const name = hero?.name || 'Rajaganesh T';
+    const title = `${name} | Java Developer and Android App Developer Portfolio`;
+    const description = hero?.bio || 'Rajaganesh T is an aspiring Android app developer and Java developer showcasing projects, skills, certifications, internships, and contact details on his portfolio website.';
+    const keywords = [
+      name,
+      'Rajaganesh',
+      'RajaGanesh',
+      'Java Developer',
+      'Android App Developer',
+      'Portfolio',
+      'React',
+      'Firebase',
+      'Tamil Nadu',
+    ].join(', ');
+
+    applySeo({
+      title,
+      description,
+      keywords,
+      url: siteUrl,
+      image: hero?.photo_url,
+      structuredData: {
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'Person',
+            name,
+            alternateName: 'Rajaganesh',
+            url: siteUrl,
+            image: hero?.photo_url,
+            jobTitle: hero?.title || 'Aspiring Android App Developer',
+            description,
+            email: hero?.email ? `mailto:${hero.email}` : undefined,
+            telephone: hero?.phone || undefined,
+            address: hero?.location
+              ? {
+                  '@type': 'PostalAddress',
+                  addressLocality: 'Cuddalore',
+                  addressRegion: 'Tamil Nadu',
+                  addressCountry: 'IN',
+                }
+              : undefined,
+            alumniOf: hero?.college
+              ? {
+                  '@type': 'CollegeOrUniversity',
+                  name: hero.college,
+                }
+              : undefined,
+            sameAs: [hero?.github, hero?.linkedin].filter(Boolean),
+            knowsAbout: ['Java', 'Android Development', 'React', 'Firebase', 'MySQL', 'Mobile App Development'],
+          },
+          {
+            '@type': 'WebSite',
+            name: `${name} Portfolio`,
+            url: siteUrl,
+            description,
+          },
+        ],
+      },
+    });
+  }, [data]);
 
   return (
     <>

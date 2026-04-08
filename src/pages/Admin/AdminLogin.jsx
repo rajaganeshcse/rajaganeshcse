@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+import { applyNoIndexSeo } from '../../utils/seo';
 import './AdminLogin.css';
 
 function ProfileIcon() {
@@ -22,6 +23,13 @@ export default function AdminLogin() {
 
   const { login } = useAuth();
   const navigate  = useNavigate();
+
+  useEffect(() => {
+    applyNoIndexSeo({
+      title: 'Profile Admin Login | Rajaganesh T',
+      description: 'Admin login page for the Rajaganesh T portfolio.',
+    });
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
