@@ -20,9 +20,18 @@ export default function HeroTab({ data, reload, flash }) {
     if (photo) fd.append('photo', photo);
     if (siteIcon) fd.append('site_icon', siteIcon);
     if (resume) fd.append('resume', resume);
-    await API.put('/admin/hero/', fd);
-    flash('Hero section saved!');
-    reload();
+    try {
+      await API.put('/admin/hero/', fd);
+      flash('Hero section saved!');
+      reload();
+      setSiteIcon(null);
+      setPhoto(null);
+      setResume(null);
+    } catch (error) {
+      const message = error?.response?.data?.detail || 'Failed to upload the hero settings.';
+      flash(message);
+      console.error('Hero save failed', error);
+    }
   };
 
   return (
