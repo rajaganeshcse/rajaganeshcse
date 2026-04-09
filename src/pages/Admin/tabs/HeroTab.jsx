@@ -102,6 +102,9 @@ export default function HeroTab({ data, reload, flash }) {
             accept=".png,.jpg,.jpeg,.webp,.svg,.ico,image/*"
             onChange={(e) => setSiteIcon(e.target.files[0])}
           />
+          <small style={{ display: 'block', marginTop: '8px', color: 'var(--text-muted, #64748b)' }}>
+            Use a square PNG or ICO image for the best result in browser tabs and Google search.
+          </small>
           {form.site_icon_url ? (
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '10px', flexWrap: 'wrap' }}>
               <img
