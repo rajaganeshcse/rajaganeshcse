@@ -4,6 +4,7 @@ import API from '../../../utils/api';
 export default function HeroTab({ data, reload, flash }) {
   const [form,  setForm]  = useState({});
   const [photo, setPhoto] = useState(null);
+  const [siteIcon, setSiteIcon] = useState(null);
   const [resume, setResume] = useState(null);
 
   useEffect(() => {
@@ -17,6 +18,7 @@ export default function HeroTab({ data, reload, flash }) {
     const fd = new FormData();
     Object.keys(form).forEach((k) => { if (form[k] !== null && form[k] !== undefined) fd.append(k, form[k]); });
     if (photo) fd.append('photo', photo);
+    if (siteIcon) fd.append('site_icon', siteIcon);
     if (resume) fd.append('resume', resume);
     await API.put('/admin/hero/', fd);
     flash('Hero section saved!');
@@ -92,6 +94,26 @@ export default function HeroTab({ data, reload, flash }) {
         <div className="field">
           <label>Profile Photo</label>
           <input type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files[0])} />
+        </div>
+        <div className="field">
+          <label>Website Icon</label>
+          <input
+            type="file"
+            accept=".png,.jpg,.jpeg,.webp,.svg,.ico,image/*"
+            onChange={(e) => setSiteIcon(e.target.files[0])}
+          />
+          {form.site_icon_url ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginTop: '10px', flexWrap: 'wrap' }}>
+              <img
+                src={form.site_icon_url}
+                alt="Current website icon"
+                style={{ width: '48px', height: '48px', objectFit: 'cover', borderRadius: '12px', border: '1px solid rgba(148, 163, 184, 0.4)' }}
+              />
+              <a href={form.site_icon_url} target="_blank" rel="noreferrer" className="badge" style={{ width: 'fit-content' }}>
+                View current icon
+              </a>
+            </div>
+          ) : null}
         </div>
         <div className="field">
           <label>Resume File</label>

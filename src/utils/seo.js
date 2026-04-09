@@ -47,6 +47,7 @@ export function applySeo({
   keywords,
   url,
   image,
+  favicon,
   robots = 'index, follow',
   author = 'Rajaganesh T',
   structuredData,
@@ -75,6 +76,9 @@ export function applySeo({
   upsertMeta({ name: 'twitter:description', content: description });
   upsertMeta({ name: 'twitter:image', content: image });
   upsertLink('canonical', url);
+  upsertLink('icon', favicon);
+  upsertLink('shortcut icon', favicon);
+  upsertLink('apple-touch-icon', favicon);
   upsertJsonLd('portfolio-page', structuredData);
 }
 

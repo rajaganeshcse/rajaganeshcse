@@ -74,6 +74,7 @@ export default function Home() {
       keywords,
       url: siteUrl,
       image: hero?.photo_url,
+      favicon: hero?.site_icon_url,
       structuredData: {
         '@context': 'https://schema.org',
         '@graph': [
